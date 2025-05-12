@@ -16,13 +16,13 @@ Tired of sifting through endless PDF pages? Say hello to **Booksie**, the system
 
 ## 🛠️ Tech Stack That Redefines "State-of-the-Art" 🛠️
 
-*   **Backend**: Go (Golang)
+*   **Backend**: Go 
 *   **AI/ML**: Google Gemini, NLTK
 *   **Vector Database**: Qdrant
-*   **PDF Processing**: Python (PyMuPDF)
-*   **APIs**: gRPC, REST (via HTTP gateway)
+*   **PDF Processing**: Python
+*   **APIs**: gRPC, REST 
 *   **Containerization**: Docker, Docker Compose
-*   **Database**: SQLite (for metadata)
+*   **Database**: SQLite3
 
 ## 🚀 Getting Started: Experience the Revolution!
 
@@ -33,7 +33,3 @@ Tired of sifting through endless PDF pages? Say hello to **Booksie**, the system
 5.  Open your browser and navigate to `http://localhost:8080` to access the web UI, or connect via gRPC!
 
 ---
-
-**Booksie** is more than just a Q&A system; it's a leap forward in how we interact with information. Get ready to revolutionize your document workflows and unlock unprecedented levels of productivity! 🌟
-
-#PDF #AI #MachineLearning #GoLang #Python #Qdrant #Gemini #Docker #Innovation #Tech #LinkedIn #FutureOfWork #DocumentManagement
