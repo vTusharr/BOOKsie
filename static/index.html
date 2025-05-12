@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Q&A System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>PDF Q&A System</h1>
+
+    <div class="container">
+        <h2>Upload PDF</h2>
+        <input type="file" id="pdfFile" accept=".pdf">
+        <button id="uploadButton">Upload</button>
+        <p id="uploadStatus"></p>
+    </div>
+
+    <div class="container">
+        <h2>Ask a Question</h2>
+        <textarea id="questionInput" placeholder="Enter your question here..."></textarea>
+        <br>
+        <label for="pdfSelect">Scope to PDF (optional):</label>
+        <select id="pdfSelect">
+            <option value="">All Documents</option>
+        </select>
+        <br>
+        <button id="askButton">Ask</button>
+        <div id="answerResult">
+            <h3>Answer:</h3>
+            <p id="answerText"></p>
+            <h4>Source Documents:</h4>
+            <ul id="sourceDocumentsList"></ul>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Processed PDFs</h2>
+        <button id="listPdfsButton">Refresh List</button>
+        <table id="pdfsTable">
+            <thead>
+                <tr>
+                    <th>File Name</th>
+                    <th>Document ID</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Pages</th>
+                    <th>Chunks</th>
+                    <th>Processed At</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="pdfsTableBody">
+                <!-- PDF list will be populated here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

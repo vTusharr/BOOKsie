@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+package pdf_qna;
+
+option go_package = "./;main"; // Explicitly set to main
+
+// The service definition for generating embeddings.
+service EmbeddingService {
+  // Generates an embedding for the given text.
+  rpc GenerateEmbedding (GenerateEmbeddingRequest) returns (GenerateEmbeddingResponse);
+}
+
+// The request message containing the text to embed.
+message GenerateEmbeddingRequest {
+  string text = 1;
+}
+
+// The response message containing the generated embedding.
+message GenerateEmbeddingResponse {
+  repeated float embedding = 1;
+}
+
+// The service definition for the Q&A functionality.
+service QnAService {
+  // Answers a question based on the provided context (e.g., relevant PDF chunks).
+  rpc AnswerQuestion (AnswerQuestionRequest) returns (AnswerQuestionResponse);
+  // Uploads a PDF for processing.
+  rpc UploadPDF (UploadPDFRequest) returns (UploadPDFResponse);
+  // Lists all processed PDFs.
+  rpc ListProcessedPDFs (ListProcessedPDFsRequest) returns (ListProcessedPDFsResponse);
+}
+
+// The request message for answering a question.
+message AnswerQuestionRequest {
+  string question = 1;
+  repeated string context_chunks = 2; // Chunks of text from PDFs relevant to the question
+  string source_document_filter = 3; // Optional: filter answers by a specific document
+  AnswerMode answer_mode = 4; // New field to control answer generation mode
+  string pdf_id = 5; // Optional: ID of the PDF to scope the question
+}
+
+enum AnswerMode {
+  CONTEXT_ONLY = 0; // Default: Answer strictly based on provided context
+  GENERAL_KNOWLEDGE_ALLOWED = 1; // Allow LLM to use its general knowledge
+}
+
+// The response message containing the answer.
+message AnswerQuestionResponse {
+  string answer = 1;
+  repeated string source_documents = 2; // Documents from which the answer was derived
+}
+
+// Metadata for a processed PDF document.
+message PdfDocumentMetadata {
+  string document_id = 1; // Unique ID of the document
+  string file_name = 2; // Name of the file
+  string title = 3;
+  string author = 4;
+  int32 total_pages = 5;
+  int32 total_chunks = 6;
+  string processed_at = 7; // Consider using google.protobuf.Timestamp
+  string status = 8;       // e.g., "Processed", "Processing", "Failed"
+  string metadata_json = 9;
+}
+
+// The request message for uploading a PDF.
+message UploadPDFRequest {
+  string file_name = 1;
+  bytes pdf_content = 2;
+}
+
+// The response message for uploading a PDF.
+message UploadPDFResponse {
+  string message = 1;
+  string document_id = 2; // A unique ID assigned to the uploaded document
+}
+
+// The request message for listing processed PDFs.
+message ListProcessedPDFsRequest {}
+
+// The response message for listing processed PDFs.
+message ListProcessedPDFsResponse {
+  repeated PdfDocumentMetadata documents = 1;
+}

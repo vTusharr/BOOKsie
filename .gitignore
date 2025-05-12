@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtualenv
+.venv/
+venv/
+ENV/
+env/
+
+# Docker
+**/docker-compose.override.yml
+
+# Go
+*.out
+*.exe
+*.dll
+*.test
+
+# Project specific
+.env
+pdf_qna.db
+qdrant_storage/
+*.log
+config.json
+
+# IDE / OS specific
+.vscode/
+.idea/
+*.DS_Store

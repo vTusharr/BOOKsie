@@ -1,0 +1,47 @@
+networks:
+  qna_network:
+    driver: bridge
+
+volumes:
+  qdrant_storage:
+  app_db_storage:
+  app_uploads_storage:
+
+services:
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: qdrant_db
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_storage:/qdrant/storage # Persistent storage for Qdrant
+    networks:
+      - qna_network
+    restart: unless-stopped
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pdf_qna_app
+    depends_on:
+      - qdrant
+    ports:
+      - "${GRPC_PORT:-50051}:${GRPC_PORT:-50051}" # Use GRPC_PORT from .env, default to 50051
+      - "8080:8080" # Map HTTP port
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY} # Must be set in .env file
+      - QDRANT_URL=http://qdrant:6333
+      - DB_PATH=/app/database/pdf_qna.db
+      - GRPC_PORT=${GRPC_PORT:-50051}
+      - HTTP_PORT=8080
+      - NLTK_DATA=/app/nltk_data # Ensure Python script uses this
+    volumes:
+      - app_db_storage:/app/database # Mount a volume for the SQLite DB
+      - app_uploads_storage:/app/uploads # Mount a volume for uploads
+      - ./qdrant_storage:/app/qdrant_storage # Example for local Qdrant data persistence
+    networks:
+      - qna_network
+    restart: unless-stopped
+    # The command is already set in the Dockerfile CMD ["/app/pdf_qna_service", "-serve"]
