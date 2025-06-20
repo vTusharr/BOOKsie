@@ -17,7 +17,7 @@ const geminiEmbeddingsAPIURLFormat = "https://generativelanguage.googleapis.com/
 const geminiChatCompletionsAPIURLFormat = "https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent"
 
 // TODO: Define Gemini model names - Ensure these are the correct and available model identifiers.
-const geminiTextModel = "gemini-1.5-flash-latest" // Changed to gemini-1.5-flash-latest
+const geminiTextModel = "gemini-2.5-flash-latest" // Changed to gemini-1.5-flash-latest
 const geminiEmbeddingModel = "text-embedding-004" // Example, verify with Gemini documentation
 
 const ( // Retry constants
